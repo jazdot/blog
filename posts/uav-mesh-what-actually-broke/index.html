@@ -9,12 +9,17 @@
   <meta property="og:description" content="Building an ad-hoc mesh network for 10 autonomous UAVs taught me more about network design than any textbook. Here's the honest breakdown." />
   <meta property="og:url" content="https://jazdot.github.io/blog/posts/uav-mesh-what-actually-broke/" />
   <link rel="canonical" href="https://jazdot.github.io/blog/posts/uav-mesh-what-actually-broke/" />
+  
+  <!-- Prefetch main portfolio for instant transitions -->
+  <link rel="prefetch" href="https://jazdot.github.io" />
   <link rel="stylesheet" href="../../assets/style.css" />
   <link rel="icon" type="image/svg+xml" href="https://jazdot.github.io/favicon.svg" />
+  <link rel="alternate icon" type="image/png" href="https://jazdot.github.io/jd.png" />
+  <link rel="apple-touch-icon" href="https://jazdot.github.io/jd-android.png" />
   <style>
-    .code-wrapper { position: relative; margin-bottom: 1.25rem; }
+    .code-wrapper { position: relative; margin-bottom: 1.5rem; }
     .copy-btn {
-      position: absolute; top: 10px; right: 10px;
+      position: absolute; top: 12px; right: 12px;
       font-size: .7rem; font-weight: 600; padding: .25rem .6rem;
       border-radius: 6px; background: var(--border); color: var(--muted);
       border: 1px solid var(--border); cursor: pointer; transition: all .2s;
@@ -22,22 +27,22 @@
     .copy-btn:hover { color: var(--page-text); background: var(--card-bg); }
     .callout {
       margin: 2rem 0; padding: 1.1rem 1.4rem; border-left: 3px solid var(--accent);
-      background: var(--border); border-radius: 0 8px 8px 0; font-size: .92rem;
-      color: var(--page-text); line-height: 1.65;
+      background: var(--border); border-radius: 0 8px 8px 0; font-size: .95rem;
+      color: var(--page-text); line-height: 1.65; max-width: 840px;
     }
     .callout strong { color: var(--accent); }
     .ascii {
-      font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: .78rem;
+      font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: .8rem;
       line-height: 1.6; background: var(--card-bg); border: 1px solid var(--border);
-      border-radius: 10px; padding: 1.4rem 1.6rem; overflow-x: auto; color: var(--page-text);
-      backdrop-filter: blur(8px);
+      border-radius: 12px; padding: 1.4rem 1.6rem; overflow-x: auto; color: var(--page-text);
+      backdrop-filter: blur(8px); max-width: 1000px;
     }
     [data-theme="dark"] .ascii { color: #94a3b8; }
-    .stat-row { display: flex; gap: 1.5rem; margin: 2rem 0; flex-wrap: wrap; }
-    .stat-box { flex: 1; min-width: 120px; padding: 1rem 1.25rem; border: 1px solid var(--border); border-radius: 10px; background: var(--card-bg); backdrop-filter: blur(8px); }
+    .stat-row { display: flex; gap: 1.5rem; margin: 2rem 0; flex-wrap: wrap; max-width: 1000px; }
+    .stat-box { flex: 1; min-width: 130px; padding: 1.1rem 1.25rem; border: 1px solid var(--border); border-radius: 12px; background: var(--card-bg); backdrop-filter: blur(8px); }
     .stat-box .val { font-size: 1.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--page-text); line-height: 1; }
     .stat-box .lbl { font-size: .72rem; color: var(--muted); margin-top: .35rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
-    .reading-time { display: inline-flex; align-items: center; gap: .4rem; font-size: .78rem; color: var(--muted); }
+    .reading-time { display: inline-flex; align-items: center; gap: .4rem; font-size: .82rem; color: var(--muted); }
   </style>
 </head>
 <body>
@@ -45,6 +50,7 @@
 <div class="aurora" aria-hidden="true"><div class="aurora-blob"></div><div class="aurora-blob"></div></div>
 <div class="dot-bg" aria-hidden="true"></div>
 <div id="progress-bar" aria-hidden="true"></div>
+
 
 <nav>
   <a href="https://jazdot.github.io" class="nav-logo">JAZDOT<span>.</span></a>
@@ -56,8 +62,22 @@
   </ul>
   <div class="nav-right">
     <button id="theme-toggle" aria-label="Toggle theme"></button>
+    <a href="https://jazdot.github.io/#/tools" class="nav-contact-btn">Contact</a>
+    <button class="mobile-toggle" id="mobile-toggle" aria-label="Toggle menu">
+      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="18" x2="21" y2="18"/></svg>
+    </button>
   </div>
 </nav>
+
+<!-- Mobile Menu -->
+<div class="mobile-menu" id="mobile-menu">
+  <a href="https://jazdot.github.io">Home</a>
+  <a href="https://jazdot.github.io/#/about">Profile</a>
+  <a href="https://jazdot.github.io/#/tools">Tools</a>
+  <a href="https://jazdot.github.io/blog" class="active">Blog</a>
+  <a href="https://jazdot.github.io/#/tools" class="nav-contact-btn" style="margin-top: .5rem; display: inline-flex;">Contact</a>
+</div>
+
 
 <main>
   <article>
@@ -195,11 +215,11 @@ Speed 15 m/s:  link breaks faster than TC can propagate</code></pre></div>
     </div>
   </article>
 
-  <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
+  <div style="margin-top: 4rem; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
     <a href="https://jazdot.github.io/blog" style="font-size: .875rem; color: var(--muted); text-decoration: none;">
       ← Back to all posts
     </a>
-    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background: none; border: none; font-size: .8rem; color: var(--muted); cursor: pointer;">
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background: none; border: none; font-size: .85rem; color: var(--muted); cursor: pointer;">
       Back to top ↑
     </button>
   </div>
@@ -241,6 +261,15 @@ Speed 15 m/s:  link breaks faster than TC can propagate</code></pre></div>
     navigator.clipboard.writeText(code).then(() => {
       button.innerText = 'Copied!';
       setTimeout(() => { button.innerText = 'Copy'; }, 2000);
+    });
+  }
+
+  // Mobile menu toggle
+  const mobileToggle = document.getElementById('mobile-toggle');
+  const mobileMenu = document.getElementById('mobile-menu');
+  if (mobileToggle && mobileMenu) {
+    mobileToggle.addEventListener('click', () => {
+      mobileMenu.classList.toggle('open');
     });
   }
 </script>

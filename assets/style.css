@@ -1,10 +1,19 @@
 /* ============================================================
-   jazdot blog — shared design system
-   Mirrors jazdot.github.io design tokens & responsive layout
+   jazdot blog — shared design system & GlassNavBar
+   Identical to jazdot.github.io GlassNavBar & theme properties
    ============================================================ */
 
-/* Google Fonts — Inter & JetBrains Mono */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+
+/* View Transitions for smooth page switching */
+@view-transition {
+  navigation: auto;
+}
+
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation-duration: 0.25s;
+}
 
 /* ── Tokens ─────────────────────────────────────────────── */
 :root {
@@ -14,19 +23,19 @@
   --border:    rgba(15, 23, 42, 0.08);
   --card-bg:   rgba(255,255,255,0.65);
   --accent:    #3b82f6;
-  --nav-bg:    rgba(255,255,255,0.75);
+  --nav-bg:    rgba(255, 255, 255, 0.70);
   --blob1:     rgba(59, 130, 246, 0.06);
   --blob2:     rgba(99, 102, 241, 0.05);
 }
 
 [data-theme="dark"] {
   --page-bg:   #020617;
-  --page-text: #f1f5f9;
+  --page-text: #f8fafc;
   --muted:     #94a3b8;
-  --border:    rgba(255,255,255,0.07);
-  --card-bg:   rgba(15,23,42,0.55);
+  --border:    rgba(255, 255, 255, 0.08);
+  --card-bg:   rgba(15, 23, 42, 0.55);
   --accent:    #818cf8;
-  --nav-bg:    rgba(2,6,23,0.80);
+  --nav-bg:    rgba(2, 6, 23, 0.70);
   --blob1:     rgba(99, 102, 241, 0.08);
   --blob2:     rgba(59, 130, 246, 0.06);
 }
@@ -41,7 +50,7 @@ body {
   background-color: var(--page-bg);
   color: var(--page-text);
   line-height: 1.75;
-  transition: background-color .3s, color .3s;
+  transition: background-color .3s ease, color .3s ease;
   overflow-x: hidden;
 }
 
@@ -98,63 +107,79 @@ body {
   position: fixed;
   top: 0; left: 0; right: 0;
   height: 3px;
-  background: var(--accent);
+  background: var(--page-text);
   transform-origin: left;
   transform: scaleX(0);
   z-index: 9999;
   transition: transform .1s linear;
 }
 
-/* ── Navigation ─────────────────────────────────────────── */
+/* ── GlassNavBar (Identical to jazdot.github.io) ──────────── */
 nav {
   position: fixed;
   top: 24px;
   left: 50%;
   transform: translateX(-50%);
   z-index: 50;
-  width: 92%;
-  max-width: 1080px;
+  width: 90%;
+  max-width: 1024px; /* max-w-5xl */
   display: flex;
   align-items: center;
   justify-content: space-between;
-  padding: 12px 28px;
+  padding: 12px 24px;
   border-radius: 9999px;
   background: var(--nav-bg);
   border: 1px solid var(--border);
-  backdrop-filter: blur(16px);
-  -webkit-backdrop-filter: blur(16px);
-  box-shadow: 0 4px 24px rgba(0,0,0,0.06);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.01);
 }
+
 .nav-logo {
   font-weight: 700;
-  font-size: 1.1rem;
-  letter-spacing: .08em;
+  font-size: 1.125rem;
+  letter-spacing: .1em;
   color: var(--page-text);
   text-decoration: none;
+  user-select: none;
 }
 .nav-logo span { color: var(--muted); }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 2.25rem;
+  gap: 2rem;
   list-style: none;
 }
 .nav-links a {
-  font-size: .9rem;
+  position: relative;
+  font-size: .875rem;
   font-weight: 500;
   color: var(--muted);
   text-decoration: none;
-  transition: color .2s;
+  transition: color .2s ease;
 }
 .nav-links a:hover,
 .nav-links a.active { color: var(--page-text); }
+
+.nav-links a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -6px;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: var(--page-text);
+}
 
 .nav-right {
   display: flex;
   align-items: center;
   gap: .75rem;
 }
+
 #theme-toggle {
   background: none;
   border: none;
@@ -162,9 +187,67 @@ nav {
   color: var(--muted);
   padding: 6px;
   line-height: 0;
-  transition: color .2s;
+  border-radius: 50%;
+  transition: color .2s ease;
 }
 #theme-toggle:hover { color: var(--page-text); }
+
+.nav-contact-btn {
+  font-size: .875rem;
+  font-weight: 500;
+  padding: 8px 20px;
+  border-radius: 9999px;
+  background: var(--page-text);
+  color: var(--page-bg);
+  border: 1px solid var(--border);
+  text-decoration: none;
+  transition: opacity .2s ease, transform .2s ease;
+  display: inline-flex;
+  align-items: center;
+}
+.nav-contact-btn:hover { opacity: .9; transform: translateY(-1px); }
+
+/* Mobile Menu Toggle */
+.mobile-toggle {
+  display: none;
+  background: none;
+  border: none;
+  color: var(--muted);
+  cursor: pointer;
+  padding: 4px;
+}
+.mobile-toggle:hover { color: var(--page-text); }
+
+/* Mobile Dropdown Menu */
+.mobile-menu {
+  display: none;
+  position: fixed;
+  top: 90px;
+  left: 50%;
+  transform: translateX(-50%);
+  z-index: 45;
+  width: 88%;
+  max-width: 360px;
+  flex-direction: col;
+  align-items: center;
+  gap: 1.25rem;
+  padding: 1.75rem 1.5rem;
+  border-radius: 1.25rem;
+  background: var(--nav-bg);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
+}
+.mobile-menu.open { display: flex; flex-direction: column; }
+.mobile-menu a {
+  font-size: 1rem;
+  font-weight: 500;
+  color: var(--muted);
+  text-decoration: none;
+  transition: color .2s ease;
+}
+.mobile-menu a:hover, .mobile-menu a.active { color: var(--page-text); }
 
 /* ── Layout (Wide Desktop Container) ─────────────────────── */
 main {
@@ -237,14 +320,6 @@ main {
   max-width: 800px;
 }
 
-/* Empty state */
-.empty-state {
-  padding: 4rem 0;
-  text-align: center;
-  color: var(--muted);
-  font-size: 1rem;
-}
-
 /* ── Article Page (Desktop Wide Header & Readable Prose) ── */
 .article-header {
   margin-bottom: 3rem;
@@ -289,10 +364,9 @@ main {
   text-transform: uppercase;
 }
 
-/* ── Prose Typography & Wide Code/Media Containers ───────── */
+/* ── Prose Typography & Wide Containers ─────────────────── */
 .prose { font-size: 1.02rem; color: var(--page-text); line-height: 1.8; width: 100%; }
 
-/* Paragraphs & Text: Max-width 840px for comfortable reading line length */
 .prose > p,
 .prose > ul,
 .prose > ol,
@@ -374,9 +448,11 @@ footer {
 footer a { color: var(--muted); text-decoration: none; }
 footer a:hover { color: var(--page-text); }
 
-/* ── Responsive Behavior (Tablet & Mobile Compatibility) ── */
-@media (max-width: 860px) {
-  nav { top: 16px; width: 94%; padding: 10px 20px; }
+/* ── Responsive Behavior ────────────────────────────────── */
+@media (max-width: 768px) {
+  nav { top: 16px; width: 92%; padding: 10px 20px; }
+  .nav-links, .nav-contact-btn { display: none; }
+  .mobile-toggle { display: block; }
   main { padding: 110px 20px 70px; }
   .page-header h1 { font-size: 2rem; }
   .article-header h1 { font-size: 1.85rem; }
@@ -385,8 +461,6 @@ footer a:hover { color: var(--page-text); }
 }
 
 @media (max-width: 640px) {
-  nav { padding: 8px 16px; }
-  .nav-links { display: none; }
   main { padding-top: 96px; }
   .page-header h1 { font-size: 1.65rem; }
   .article-header h1 { font-size: 1.5rem; }
