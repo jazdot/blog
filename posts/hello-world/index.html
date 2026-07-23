@@ -1,0 +1,130 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Hello World — Blog — Muhammed Riswan M. P.</title>
+  <meta name="description" content="A brief introduction to the blog and what to expect." />
+  <meta property="og:title" content="Hello World — Why I Started This Blog" />
+  <meta property="og:url" content="https://jazdot.github.io/blog/posts/hello-world/" />
+  <link rel="canonical" href="https://jazdot.github.io/blog/posts/hello-world/" />
+  <link rel="stylesheet" href="../../assets/style.css" />
+  <link rel="icon" type="image/svg+xml" href="https://jazdot.github.io/favicon.svg" />
+</head>
+<body>
+
+<!-- Aurora -->
+<div class="aurora" aria-hidden="true">
+  <div class="aurora-blob"></div>
+  <div class="aurora-blob"></div>
+</div>
+<div class="dot-bg" aria-hidden="true"></div>
+<div id="progress-bar" aria-hidden="true"></div>
+
+<!-- Nav -->
+<nav>
+  <a href="https://jazdot.github.io" class="nav-logo">JAZDOT<span>.</span></a>
+  <ul class="nav-links">
+    <li><a href="https://jazdot.github.io">Home</a></li>
+    <li><a href="https://jazdot.github.io/#/about">Profile</a></li>
+    <li><a href="https://jazdot.github.io/#/tools">Tools</a></li>
+    <li><a href="https://jazdot.github.io/blog" class="active">Blog</a></li>
+  </ul>
+  <div class="nav-right">
+    <button id="theme-toggle" aria-label="Toggle theme"></button>
+  </div>
+</nav>
+
+<!-- Article -->
+<main>
+  <article>
+    <header class="article-header">
+      <div class="breadcrumb">
+        <a href="https://jazdot.github.io/blog">Blog</a> / Hello World
+      </div>
+      <h1>Hello World — Why I Started This Blog</h1>
+      <div class="article-date">July 2026</div>
+      <div class="article-tags">
+        <span class="tag">Meta</span>
+        <span class="tag">Writing</span>
+      </div>
+    </header>
+
+    <div class="prose">
+      <p>
+        I've been meaning to write more for a while now — structured thoughts, not just commit messages
+        or Confluence pages that only colleagues read. This is that place.
+      </p>
+
+      <h2>What this is</h2>
+      <p>
+        I work on 5G protocol stacks, network automation, and cloud infrastructure at
+        <a href="https://www.tataelxsi.com" target="_blank" rel="noopener">Tata Elxsi</a>.
+        Most of the interesting problems I run into day-to-day don't have a clean Stack Overflow answer —
+        they sit at the intersection of very specific tools and very specific constraints.
+      </p>
+      <p>
+        This blog is where I'll write up those problems and their solutions — for future-me,
+        and for whoever lands here from a search engine at 2 AM wondering why their SCTP association
+        keeps dropping on OAI.
+      </p>
+
+      <h2>What to expect</h2>
+      <ul>
+        <li><strong>5G / O-RAN</strong> — protocol integration notes, OAI + Keysight debugging, CU/DU bring-up</li>
+        <li><strong>Network automation</strong> — Terraform, Ansible, Python scripting patterns that actually work</li>
+        <li><strong>Cloud / SDN</strong> — OpenStack Neutron, KVM lab setups, multi-tenant networking</li>
+        <li><strong>Occasional research notes</strong> — UAV mesh networking, things from the MTech days</li>
+      </ul>
+      <p>
+        Posts will be technical and specific. I'll try to include real configs, real error messages,
+        and real fixes.
+      </p>
+
+      <hr />
+      <p style="color: var(--muted); font-size: .875rem;">
+        — Riswan, Bengaluru
+      </p>
+    </div>
+  </article>
+
+  <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+    <a href="https://jazdot.github.io/blog" style="font-size: .875rem; color: var(--muted); text-decoration: none;">
+      ← Back to all posts
+    </a>
+  </div>
+</main>
+
+<footer>
+  <p>
+    <a href="https://jazdot.github.io">jazdot.github.io</a> &nbsp;·&nbsp;
+    <a href="https://linkedin.com/in/muhammedriswanmp" target="_blank" rel="noopener">LinkedIn</a> &nbsp;·&nbsp;
+    <a href="https://github.com/jazdot" target="_blank" rel="noopener">GitHub</a>
+  </p>
+  <p style="margin-top:.5rem;">© <span id="year"></span> Muhammed Riswan M. P.</p>
+</footer>
+
+<script>
+  document.getElementById('year').textContent = new Date().getFullYear();
+  const root = document.documentElement;
+  const saved = localStorage.getItem('theme') || 'dark';
+  root.setAttribute('data-theme', saved);
+  const sunIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+  const moonIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+  const btn = document.getElementById('theme-toggle');
+  btn.innerHTML = saved === 'dark' ? sunIcon : moonIcon;
+  btn.addEventListener('click', () => {
+    const next = root.getAttribute('data-theme') === 'dark' ? 'light' : 'dark';
+    root.setAttribute('data-theme', next);
+    localStorage.setItem('theme', next);
+    btn.innerHTML = next === 'dark' ? sunIcon : moonIcon;
+  });
+  const bar = document.getElementById('progress-bar');
+  window.addEventListener('scroll', () => {
+    const p = (document.body.scrollHeight - window.innerHeight) > 0
+      ? window.scrollY / (document.body.scrollHeight - window.innerHeight) : 0;
+    bar.style.transform = `scaleX(${p})`;
+  }, { passive: true });
+</script>
+</body>
+</html>
