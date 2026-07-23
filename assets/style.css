@@ -10,9 +10,21 @@
   navigation: auto;
 }
 
-::view-transition-old(root),
+::view-transition-old(root) {
+  animation: 0.2s cubic-bezier(0.4, 0, 0.2, 1) both fade-out;
+}
 ::view-transition-new(root) {
-  animation-duration: 0.25s;
+  animation: 0.2s cubic-bezier(0.4, 0, 0.2, 1) both fade-in;
+}
+
+@keyframes fade-out {
+  from { opacity: 1; }
+  to { opacity: 0; }
+}
+
+@keyframes fade-in {
+  from { opacity: 0; transform: translateY(4px); }
+  to { opacity: 1; transform: translateY(0); }
 }
 
 /* ── Tokens ─────────────────────────────────────────────── */
@@ -40,7 +52,7 @@
   --blob2:     rgba(59, 130, 246, 0.06);
 }
 
-/* ── Reset ──────────────────────────────────────────────── */
+/* ── Reset & Smooth Page Entrance ────────────────────────── */
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
 html { scroll-behavior: smooth; }
@@ -52,6 +64,13 @@ body {
   line-height: 1.75;
   transition: background-color .3s ease, color .3s ease;
   overflow-x: hidden;
+  animation: fade-in 0.25s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+body.page-exit {
+  opacity: 0;
+  transform: translateY(-4px);
+  transition: opacity 0.18s ease, transform 0.18s ease;
 }
 
 /* ── Aurora background ──────────────────────────────────── */
@@ -114,7 +133,7 @@ body {
   transition: transform .1s linear;
 }
 
-/* ── GlassNavBar (Identical to jazdot.github.io) ──────────── */
+/* ── GlassNavBar (Pixel Identical to jazdot.github.io) ──── */
 nav {
   position: fixed;
   top: 24px;
@@ -135,6 +154,7 @@ nav {
   box-shadow: 0 10px 25px -5px rgba(0,0,0,0.05), 0 8px 10px -6px rgba(0,0,0,0.01);
 }
 
+/* Logo & Text Gradient */
 .nav-logo {
   font-weight: 700;
   font-size: 1.125rem;
@@ -142,8 +162,26 @@ nav {
   color: var(--page-text);
   text-decoration: none;
   user-select: none;
+  display: inline-flex;
+  align-items: center;
 }
-.nav-logo span { color: var(--muted); }
+
+.text-gradient {
+  background: linear-gradient(to right, #0f172a, #64748b);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+[data-theme="dark"] .text-gradient {
+  background: linear-gradient(to right, #ffffff, #94a3b8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+.nav-logo .dot {
+  color: #94a3b8;
+  transition: color 0.3s;
+}
 
 .nav-links {
   display: flex;
@@ -158,20 +196,22 @@ nav {
   color: var(--muted);
   text-decoration: none;
   transition: color .2s ease;
+  padding-bottom: 2px;
 }
 .nav-links a:hover,
 .nav-links a.active { color: var(--page-text); }
 
+/* Exact Dot Indicator Under Active Nav Tab */
 .nav-links a.active::after {
   content: '';
   position: absolute;
   bottom: -6px;
   left: 50%;
   transform: translateX(-50%);
-  width: 4px;
-  height: 4px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: var(--page-text);
+  background-color: var(--page-text);
 }
 
 .nav-right {
@@ -228,7 +268,7 @@ nav {
   z-index: 45;
   width: 88%;
   max-width: 360px;
-  flex-direction: col;
+  flex-direction: column;
   align-items: center;
   gap: 1.25rem;
   padding: 1.75rem 1.5rem;
@@ -239,7 +279,7 @@ nav {
   -webkit-backdrop-filter: blur(24px);
   box-shadow: 0 20px 25px -5px rgba(0,0,0,0.1);
 }
-.mobile-menu.open { display: flex; flex-direction: column; }
+.mobile-menu.open { display: flex; }
 .mobile-menu a {
   font-size: 1rem;
   font-weight: 500;

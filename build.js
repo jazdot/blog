@@ -85,7 +85,7 @@ function mdToHtml(markdown) {
 // Common GlassNavBar HTML & Mobile Dropdown
 const glassNavBarHtml = `
 <nav>
-  <a href="https://jazdot.github.io" class="nav-logo">JAZDOT<span>.</span></a>
+  <a href="https://jazdot.github.io" class="nav-logo"><span class="text-gradient">JAZDOT</span><span class="dot">.</span></a>
   <ul class="nav-links">
     <li><a href="https://jazdot.github.io">Home</a></li>
     <li><a href="https://jazdot.github.io/#/about">Profile</a></li>
