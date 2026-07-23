@@ -3,25 +3,49 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Hello World — Blog — Muhammed Riswan M. P.</title>
+  <title>Hello World — Why I Started This Blog — Blog</title>
   <meta name="description" content="A brief introduction to the blog and what to expect." />
   <meta property="og:title" content="Hello World — Why I Started This Blog" />
+  <meta property="og:description" content="A brief introduction to the blog and what to expect." />
   <meta property="og:url" content="https://jazdot.github.io/blog/posts/hello-world/" />
   <link rel="canonical" href="https://jazdot.github.io/blog/posts/hello-world/" />
   <link rel="stylesheet" href="../../assets/style.css" />
   <link rel="icon" type="image/svg+xml" href="https://jazdot.github.io/favicon.svg" />
+  <style>
+    .code-wrapper { position: relative; margin-bottom: 1.25rem; }
+    .copy-btn {
+      position: absolute; top: 10px; right: 10px;
+      font-size: .7rem; font-weight: 600; padding: .25rem .6rem;
+      border-radius: 6px; background: var(--border); color: var(--muted);
+      border: 1px solid var(--border); cursor: pointer; transition: all .2s;
+    }
+    .copy-btn:hover { color: var(--page-text); background: var(--card-bg); }
+    .callout {
+      margin: 2rem 0; padding: 1.1rem 1.4rem; border-left: 3px solid var(--accent);
+      background: var(--border); border-radius: 0 8px 8px 0; font-size: .92rem;
+      color: var(--page-text); line-height: 1.65;
+    }
+    .callout strong { color: var(--accent); }
+    .ascii {
+      font-family: 'JetBrains Mono', 'Fira Code', monospace; font-size: .78rem;
+      line-height: 1.6; background: var(--card-bg); border: 1px solid var(--border);
+      border-radius: 10px; padding: 1.4rem 1.6rem; overflow-x: auto; color: var(--page-text);
+      backdrop-filter: blur(8px);
+    }
+    [data-theme="dark"] .ascii { color: #94a3b8; }
+    .stat-row { display: flex; gap: 1.5rem; margin: 2rem 0; flex-wrap: wrap; }
+    .stat-box { flex: 1; min-width: 120px; padding: 1rem 1.25rem; border: 1px solid var(--border); border-radius: 10px; background: var(--card-bg); backdrop-filter: blur(8px); }
+    .stat-box .val { font-size: 1.5rem; font-weight: 700; font-family: 'JetBrains Mono', monospace; color: var(--page-text); line-height: 1; }
+    .stat-box .lbl { font-size: .72rem; color: var(--muted); margin-top: .35rem; text-transform: uppercase; letter-spacing: .06em; font-weight: 500; }
+    .reading-time { display: inline-flex; align-items: center; gap: .4rem; font-size: .78rem; color: var(--muted); }
+  </style>
 </head>
 <body>
 
-<!-- Aurora -->
-<div class="aurora" aria-hidden="true">
-  <div class="aurora-blob"></div>
-  <div class="aurora-blob"></div>
-</div>
+<div class="aurora" aria-hidden="true"><div class="aurora-blob"></div><div class="aurora-blob"></div></div>
 <div class="dot-bg" aria-hidden="true"></div>
 <div id="progress-bar" aria-hidden="true"></div>
 
-<!-- Nav -->
 <nav>
   <a href="https://jazdot.github.io" class="nav-logo">JAZDOT<span>.</span></a>
   <ul class="nav-links">
@@ -35,15 +59,17 @@
   </div>
 </nav>
 
-<!-- Article -->
 <main>
   <article>
     <header class="article-header">
       <div class="breadcrumb">
-        <a href="https://jazdot.github.io/blog">Blog</a> / Hello World
+        <a href="https://jazdot.github.io/blog">Blog</a> / Hello World — Why I Started This Blog
       </div>
       <h1>Hello World — Why I Started This Blog</h1>
-      <div class="article-date">July 2026</div>
+      <div class="article-date">
+        <span>2026-07-20</span>
+        &nbsp;·&nbsp; <span class="reading-time">3 min read</span>
+      </div>
       <div class="article-tags">
         <span class="tag">Meta</span>
         <span class="tag">Writing</span>
@@ -51,47 +77,38 @@
     </header>
 
     <div class="prose">
-      <p>
-        I've been meaning to write more for a while now — structured thoughts, not just commit messages
-        or Confluence pages that only colleagues read. This is that place.
-      </p>
+<p>I've been meaning to write more for a while now — structured thoughts, not just commit messages or Confluence pages that only colleagues read. This is that place.</p>
 
-      <h2>What this is</h2>
-      <p>
-        I work on 5G protocol stacks, network automation, and cloud infrastructure at
-        <a href="https://www.tataelxsi.com" target="_blank" rel="noopener">Tata Elxsi</a>.
-        Most of the interesting problems I run into day-to-day don't have a clean Stack Overflow answer —
-        they sit at the intersection of very specific tools and very specific constraints.
-      </p>
-      <p>
-        This blog is where I'll write up those problems and their solutions — for future-me,
-        and for whoever lands here from a search engine at 2 AM wondering why their SCTP association
-        keeps dropping on OAI.
-      </p>
+<h2>What this is</h2>
 
-      <h2>What to expect</h2>
-      <ul>
-        <li><strong>5G / O-RAN</strong> — protocol integration notes, OAI + Keysight debugging, CU/DU bring-up</li>
-        <li><strong>Network automation</strong> — Terraform, Ansible, Python scripting patterns that actually work</li>
-        <li><strong>Cloud / SDN</strong> — OpenStack Neutron, KVM lab setups, multi-tenant networking</li>
-        <li><strong>Occasional research notes</strong> — UAV mesh networking, things from the MTech days</li>
-      </ul>
-      <p>
-        Posts will be technical and specific. I'll try to include real configs, real error messages,
-        and real fixes.
-      </p>
+<p>I work on 5G protocol stacks, network automation, and cloud infrastructure at <a href="https://www.tataelxsi.com" target="_blank" rel="noopener">Tata Elxsi</a>. Most of the interesting problems I run into day-to-day don't have a clean Stack Overflow answer — they sit at the intersection of very specific tools and very specific constraints.</p>
 
-      <hr />
-      <p style="color: var(--muted); font-size: .875rem;">
-        — Riswan, Bengaluru
-      </p>
+<p>This blog is where I'll write up those problems and their solutions — for future-me, and for whoever lands here from a search engine at 2 AM wondering why their SCTP association keeps dropping on OAI.</p>
+
+<h2>What to expect</h2>
+
+<ul>
+<li><strong>5G / O-RAN</strong> — protocol integration notes, OAI + Keysight debugging, CU/DU bring-up</li>
+<li><strong>Network automation</strong> — Terraform, Ansible, Python scripting patterns that actually work</li>
+<li><strong>Cloud / SDN</strong> — OpenStack Neutron, KVM lab setups, multi-tenant networking</li>
+<li><strong>Occasional research notes</strong> — UAV mesh networking, things from the MTech days</li>
+</ul>
+
+<p>Posts will be technical and specific. I'll try to include real configs, real error messages, and real fixes.</p>
+
+<hr />
+
+<p>— Riswan, Bengaluru</p>
     </div>
   </article>
 
-  <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border);">
+  <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
     <a href="https://jazdot.github.io/blog" style="font-size: .875rem; color: var(--muted); text-decoration: none;">
       ← Back to all posts
     </a>
+    <button onclick="window.scrollTo({top: 0, behavior: 'smooth'})" style="background: none; border: none; font-size: .8rem; color: var(--muted); cursor: pointer;">
+      Back to top ↑
+    </button>
   </div>
 </main>
 
@@ -109,8 +126,8 @@
   const root = document.documentElement;
   const saved = localStorage.getItem('theme') || 'dark';
   root.setAttribute('data-theme', saved);
-  const sunIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
-  const moonIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
+  const sunIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>`;
+  const moonIcon = `<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>`;
   const btn = document.getElementById('theme-toggle');
   btn.innerHTML = saved === 'dark' ? sunIcon : moonIcon;
   btn.addEventListener('click', () => {
@@ -125,6 +142,14 @@
       ? window.scrollY / (document.body.scrollHeight - window.innerHeight) : 0;
     bar.style.transform = `scaleX(${p})`;
   }, { passive: true });
+
+  function copyCode(button) {
+    const code = button.nextElementSibling.innerText;
+    navigator.clipboard.writeText(code).then(() => {
+      button.innerText = 'Copied!';
+      setTimeout(() => { button.innerText = 'Copy'; }, 2000);
+    });
+  }
 </script>
 </body>
 </html>

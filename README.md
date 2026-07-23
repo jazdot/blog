@@ -1,56 +1,90 @@
-# jazdot blog
+# 📝 jazdot blog
 
-Personal blog by [Muhammed Riswan M. P.](https://jazdot.github.io) — deployed at **jazdot.github.io/blog**.
-
-Pure HTML/CSS — no build tools, no frameworks. Just edit files and push.
+Personal technical blog by [Muhammed Riswan M. P.](https://jazdot.github.io) — live at **[jazdot.github.io/blog](https://jazdot.github.io/blog)**.
 
 ---
 
-## Setup on GitHub (one-time)
+## ⚡ Quick Start & Workflow
 
-1. **Create repo** at [github.com/new](https://github.com/new)
-   - **Repository name:** `blog` ← must be exactly this
-   - Owner: `jazdot`
-   - Visibility: Public
+### 1. Add a New Blog Post / Document
+Create a Markdown file inside `content/posts/` (e.g., `content/posts/5g-oran-cu-du-bringup.md`):
 
-2. **Enable GitHub Pages**
-   - Go to repo **Settings → Pages**
-   - Under *Build and deployment*, set **Source = GitHub Actions**
-   - Save
+```markdown
+---
+title: "5G O-RAN CU/DU Bring-up Guide"
+date: "2026-07-25"
+excerpt: "Step-by-step setup for OpenAirInterface CU/DU with Keysight Core."
+tags: ["5G", "O-RAN", "Protocol"]
+readTime: "6 min read"
+---
 
-3. **Push this repo**
-   ```bash
-   cd /home/richu/jazdot-blog
-   git init
-   git add .
-   git commit -m "initial blog"
-   git branch -M main
-   git remote add origin https://github.com/jazdot/blog.git
-   git push -u origin main
-   ```
+# 5G O-RAN CU/DU Bring-up Guide
 
-4. **Wait ~60 seconds** → blog is live at `https://jazdot.github.io/blog`
+Write your post content in standard Markdown here!
+
+## Section Title
+Supports **bold**, *italics*, `inline code`, code blocks, lists, and quotes.
+
+> **Key failure:** Example callout box.
+```
 
 ---
 
-## Adding a new post
+### 2. Preview Locally
+To test and preview your blog locally before publishing:
 
-1. Create a folder: `posts/my-post-slug/`
-2. Copy `posts/hello-world/index.html` into it and edit
-3. Add a `<li>` entry to `index.html` post list
-4. Push — done
+```bash
+# Generate the static HTML pages & index
+node build.js
 
-## File structure
+# Option A: Open index.html directly in your browser
+xdg-open index.html
+
+# Option B: Run a quick local HTTP server (if Python is installed)
+python3 -m http.server 8000
+# Then visit http://localhost:8000
+```
+
+---
+
+### 3. Deploy to GitHub Pages
+Simply push your changes to GitHub:
+
+```bash
+git add .
+git commit -m "Add post: 5G O-RAN CU/DU Bring-up Guide"
+git push
+```
+
+GitHub Actions will automatically run `node build.js` on push, build all pages, and publish them to `https://jazdot.github.io/blog` in under 30 seconds.
+
+---
+
+## 🚀 Enhanced Blog Features Built-In
+
+- 🔍 **Live Search Bar**: Readers can instantly filter posts by title, tag, or topic.
+- 🏷️ **Interactive Tag Pills**: Filter posts by clicking on any tag pill (`5G`, `UAV`, `OLSR`, `Meta`).
+- 📋 **One-Click Code Copy**: Every code block has an automatic "Copy" button.
+- 🌓 **Persisted Dark/Light Theme**: Seamlessly synced with `jazdot.github.io`.
+- ⏱️ **Read-time & Breadcrumbs**: Navigation indicators on every post.
+- ⬆️ **Smooth Scroll Back to Top**: Built-in for long articles.
+
+---
+
+## 📁 Directory Structure
 
 ```
 jazdot-blog/
-├── index.html              ← Blog listing
-├── posts/
-│   └── hello-world/
-│       └── index.html      ← First post
+├── content/
+│   └── posts/                    ← Put all your Markdown (.md) documents here!
+│       ├── hello-world.md
+│       └── uav-mesh-what-actually-broke.md
 ├── assets/
-│   └── style.css           ← Shared design system
+│   └── style.css                 ← Design system & typography
+├── build.js                      ← High-speed static site generator (<15ms)
+├── index.html                    ← Auto-generated blog homepage with search
+├── posts/                        ← Auto-generated HTML post pages
 └── .github/
     └── workflows/
-        └── deploy.yml      ← Auto-deploy on push to main
+        └── deploy.yml            ← Auto-builds & deploys on git push
 ```
